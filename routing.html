@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Directions Service</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 500px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row bg bg-dark">
+          <div class="col-sm-12" align="center">
+            <h1 class="text-white">Make Route Using Two Address</h1>
+          </div>
+        </div>
+        <div id="map"></div>
+        <div class="row mt-3">
+          <div class="col-sm-5">
+            <label>Start Point:</label>
+            <input type="text" name="" class="form-control" id="start" value="chicago, il">
+          </div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-5">
+            <label>End Point:</label>
+             <input type="text" name="" class="form-control" id="end" value="st louis, mo">
+          </div>
+        </div>
+        <div class="col-sm-12 mt-4" align="center">
+            <button class="btn btn-info get_route" id="test">Make Route</button>
+        </div>
+    </div>
+    <script>
+       var map, directionsService, directionsRenderer ;
+      function initMap() {
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        directionsRenderer.setMap(map);
+      }
+      $('.get_route').click(function()
+        {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        });  
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+              console.log( document.getElementById('start').value);
+              console.log( document.getElementById('end').value);
+            directionsService.route(
+            {
+              origin: {query: document.getElementById('start').value},
+              destination: {query: document.getElementById('end').value},
+              travelMode: 'DRIVING'
+            },
+            function(response, status) {
+              if (status === 'OK') {
+                directionsRenderer.setDirections(response);
+              } else {
+                window.alert('Directions request failed due to ' + status);
+              }
+            });
+          }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=you_api_key&callback=initMap">
+    </script>
+  </body>
+</html>
