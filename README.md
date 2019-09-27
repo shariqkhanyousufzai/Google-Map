@@ -1,16 +1,16 @@
 # Google-Map #
 Google Map
 
-#Place Marker On Map# 
+#Place Marker On Map 
 How to Place Marker
 
 
-#GeoCoding#
+#GeoCoding
 GeoForward Coding.
 
-#GeoRouting#
+#GeoRouting
 Make routes of Two Locations
 
-#Routing#
+#Routing
 Make Route using dropdown
 
